@@ -15,7 +15,7 @@ npm run build    # outputs to dist/
 | Services and what each includes | `src/data/services.ts` |
 | Wedding packages, prices and inclusions | `src/data/packages.ts` |
 | Bio | `src/pages/about.astro` |
-| Domain | `astro.config.mjs` and `public/robots.txt` |
+| Domain, and `launched: true` to allow search engines | `src/data/site.ts` |
 
 Search for `TODO` to find every placeholder.
 

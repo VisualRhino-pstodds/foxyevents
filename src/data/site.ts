@@ -5,7 +5,10 @@ export const site = {
   tagline: 'Making Your Events Effortless & Memorable',
   description:
     'Foxy Events is an event planning and coordination team based in Vancouver, WA, offering wedding planning, day-of coordination, social celebrations, business events and fundraisers.',
-  url: 'https://www.foxyevents.com', // TODO: confirm her domain
+  // Switch to her real domain and set `launched: true` when the domain is connected.
+  // While false, search engines are asked not to index the temporary vercel.app address.
+  url: 'https://foxyeventsco.vercel.app',
+  launched: false,
   phone: '(360) 921-2352',
   phoneHref: 'tel:+13609212352',
   email: 'foxyevents360@gmail.com',

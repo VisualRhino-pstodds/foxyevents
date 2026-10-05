@@ -1,8 +1,9 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// TODO: replace with her real domain before deploying
+import { site } from './src/data/site';
+
 export default defineConfig({
-  site: 'https://www.foxyevents.com',
+  site: site.url,
   integrations: [sitemap()],
 });
