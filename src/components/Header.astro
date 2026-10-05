@@ -1,0 +1,144 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+
+const links = [
+  { href: '/services', label: 'Services' },
+  { href: '/packages', label: 'Packages' },
+  { href: '/gallery', label: 'Gallery' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="header">
+  <div class="container bar">
+    <a href="/" class="brand" aria-label={`${site.name} home`}><Logo width={180} loading="eager" class="brand-img" /></a>
+
+    <nav aria-label="Main">
+      <ul class="nav-links" id="nav-links">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <a class="btn btn--solid call" href={site.phoneHref}>Call</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="nav-links">
+        <span class="visually-hidden">Menu</span>
+        <span class="bars" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn')!;
+  const header = document.querySelector('.header')!;
+  btn.addEventListener('click', () => {
+    const open = header.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(247, 240, 232, 0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 72px;
+  }
+  .brand { text-decoration: none; display: flex; align-items: center; }
+  .brand :global(.brand-img) { width: clamp(140px, 30vw, 180px); height: auto; }
+
+  .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 32px;
+  }
+  .nav-links a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+  }
+  .nav-links a:hover,
+  .nav-links a[aria-current='page'] { border-color: var(--copper); }
+
+  .actions { display: flex; align-items: center; gap: 8px; }
+  .call { min-height: 40px; padding: 0.5em 1.2em; }
+
+  .menu-btn {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    position: relative;
+  }
+  .bars,
+  .bars::before,
+  .bars::after {
+    position: absolute;
+    left: 11px;
+    width: 22px;
+    height: 2px;
+    background: var(--ink);
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .bars { top: 21px; }
+  .bars::before, .bars::after { content: ''; left: 0; }
+  .bars::before { top: -7px; }
+  .bars::after { top: 7px; }
+  .open .bars { background: transparent; }
+  .open .bars::before { transform: translateY(7px) rotate(45deg); }
+  .open .bars::after { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 860px) {
+    .menu-btn { display: block; }
+    nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--cream);
+      border-bottom: 1px solid var(--line);
+      display: none;
+    }
+    .open nav { display: block; }
+    .nav-links {
+      flex-direction: column;
+      gap: 0;
+      padding: 8px var(--gutter) 16px;
+    }
+    .nav-links a {
+      display: block;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+  }
+</style>

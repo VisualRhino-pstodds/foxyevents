@@ -1,0 +1,96 @@
+---
+import Logo from './Logo.astro';
+import { site, travel } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer on-dark">
+  <div class="container grid">
+    <div class="brand">
+      <Logo variant="stacked" tone="light" width={200} class="footer-logo" />
+      <p class="tag">Making your events <span class="script">effortless</span> &amp; <span class="script">memorable</span></p>
+    </div>
+
+    <div>
+      <h2 class="h">Get in touch</h2>
+      <p>
+        <a href={site.phoneHref}>{site.phone}</a><br />
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      {
+        site.socials.length > 0 && (
+          <p>
+            {site.socials.map((s, i) => (
+              <>
+                {i > 0 && ' · '}
+                <a href={s.href} rel="noopener">{s.label}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
+    </div>
+
+    <div>
+      <h2 class="h">Service area</h2>
+      <p>Based in {site.homeBase.city}, {site.homeBase.region} · Serving events everywhere</p>
+      <p class="muted">
+        Free travel within {travel.freeRadiusMiles} miles. <a href="/packages#travel">Travel policy</a>
+      </p>
+    </div>
+
+    <div>
+      <h2 class="h">Explore</h2>
+      <ul class="links">
+        <li><a href="/services">Services</a></li>
+        <li><a href="/packages">Wedding Packages</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container legal">© {year} {site.name}. All rights reserved.</div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 72px 0 32px;
+    font-size: 0.95rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1.1fr 1.2fr 0.8fr;
+    gap: 40px;
+  }
+  .brand :global(.footer-logo) { width: 170px; height: auto; }
+  .tag { margin-top: 1rem; font-family: var(--serif); font-size: 1.2rem; color: rgba(247, 240, 232, 0.85); }
+  .h {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--copper);
+    margin-bottom: 1rem;
+  }
+  a { color: var(--cream); }
+  a:hover { color: var(--copper); }
+  .muted { color: rgba(247, 240, 232, 0.65); }
+  .muted a { color: var(--copper); }
+  .links { list-style: none; margin: 0; padding: 0; }
+  .links li { margin-bottom: 0.4rem; }
+  .legal {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(247, 240, 232, 0.15);
+    color: rgba(247, 240, 232, 0.55);
+    font-size: 0.85rem;
+  }
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>

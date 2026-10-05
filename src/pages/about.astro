@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Divider from '../components/Divider.astro';
+import Logo from '../components/Logo.astro';
+import Photo from '../components/Photo.astro';
+import ContactBand from '../components/ContactBand.astro';
+import { photosIn } from '../data/photos';
+import { site } from '../data/site';
+
+const values = [
+  { title: 'We listen first', text: 'Every plan starts with what matters most to you, not a template.' },
+  { title: 'We sweat the details', text: 'Timelines, vendors, place cards and boutonnieres, all handled.' },
+  { title: 'We’re there on the day', text: 'Cueing the music, greeting guests, and solving problems before you notice them.' },
+];
+---
+
+<Layout title="About" description={`Meet the team behind ${site.name}, event planners based in Vancouver, WA.`}>
+  <section class="section">
+    <div class="container split">
+      <div class="media">
+        <Photo photo={photosIn('about')[0]} label="Founder photo coming soon" width={800} ratio="4 / 5" />
+        <Logo variant="circle" width={150} class="badge" />
+      </div>
+      <div>
+        <span class="eyebrow">About us</span>
+        <h1>The team behind <span class="script">the magic</span></h1>
+        <Divider />
+        <!-- TODO: replace with her real story -->
+        <p class="lede">
+          Foxy Events was founded on a simple idea: the people hosting an event deserve to enjoy it too.
+        </p>
+        <p>
+          [Her story: how she got into events, what she loves about it, and any notable experience or certifications.]
+        </p>
+        <p>
+          Our approach is simple: listen closely, plan thoroughly, and handle every detail so you can be a guest at your
+          own event. Whether it’s a backyard birthday or a 300-guest wedding, you get the same care.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--solid" href="/contact">Let’s talk</a>
+          <a class="btn btn--ghost" href="/services">Our services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="values">
+        {
+          values.map((v) => (
+            <div>
+              <h2>{v.title}</h2>
+              <p>{v.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ContactBand />
+</Layout>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+  }
+  .media { position: relative; }
+  .media :global(.badge) {
+    position: absolute;
+    right: -24px;
+    bottom: -24px;
+    width: clamp(100px, 14vw, 150px);
+    height: auto;
+    background: var(--cream);
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(8, 8, 8, 0.12);
+  }
+  .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
+  .values h2 { font-size: 1.7rem; }
+  .values p { color: var(--ink-soft); margin: 0; }
+  @media (max-width: 800px) {
+    .split, .values { grid-template-columns: 1fr; }
+    .media :global(.badge) { right: 8px; bottom: -20px; }
+  }
+</style>

@@ -1,0 +1,251 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Logo from '../components/Logo.astro';
+import Divider from '../components/Divider.astro';
+import Photo from '../components/Photo.astro';
+import TravelNote from '../components/TravelNote.astro';
+import ContactBand from '../components/ContactBand.astro';
+import { site } from '../data/site';
+import { services } from '../data/services';
+import { packages } from '../data/packages';
+import { photos, photosIn } from '../data/photos';
+
+const strip = photos.filter((p) => p.category !== 'about').slice(0, 6);
+const reasons = [
+  { title: 'Effortless for you', text: 'One team handling vendors, timelines and every detail in between.' },
+  { title: 'Memorable for guests', text: 'Thoughtful design and flow that make an event feel personal, not generic.' },
+  { title: 'Present on the day', text: 'We run the day so you can be a guest at your own event, not putting out fires.' },
+];
+---
+
+<Layout>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Event planning · {site.homeBase.city}, {site.homeBase.region}</span>
+        <h1>
+          Making your events <span class="script">effortless</span> &amp; <span class="script">memorable</span>
+        </h1>
+        <Divider />
+        <p class="lede">
+          Weddings, social celebrations, business events and fundraisers, planned with care so you can enjoy every moment.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--solid" href={site.phoneHref}>Call {site.phone}</a>
+          <a class="btn btn--ghost" href={`mailto:${site.email}?subject=Event%20inquiry`}>Email Us</a>
+        </div>
+      </div>
+      <div class="hero-mark">
+        <div class="halo" aria-hidden="true"></div>
+        <Logo variant="stacked" width={520} loading="eager" class="hero-logo" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">What we do</span>
+        <h2>Events for every occasion</h2>
+        <Divider align="center" />
+      </div>
+      <div class="cards">
+        {
+          services.map((s) => (
+            <a class="card" href={`/services#${s.slug}`}>
+              <Photo photo={photosIn(s.slug)[0]} label={s.title} width={600} ratio="4 / 5" />
+              <div class="card-body">
+                <h3>{s.title}</h3>
+                <p>{s.short}</p>
+                <span class="more">Learn more →</span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+      <p class="not-listed">
+        Have an event not listed? <a href="/contact">Reach out, we can probably plan it!</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">Why Foxy Events</span>
+        <h2>Planning without the stress</h2>
+        <Divider align="center" />
+      </div>
+      <div class="reasons">
+        {
+          reasons.map((r, i) => (
+            <div class="reason">
+              <span class="num">0{i + 1}</span>
+              <h3>{r.title}</h3>
+              <p>{r.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark quote">
+    <div class="container">
+      <p class="pull">
+        We’ll be there to cue the music, greet the guests, and you sit back and <span class="script">enjoy the rest.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">Wedding packages</span>
+        <h2>Support for every stage of planning</h2>
+        <Divider align="center" />
+      </div>
+      <div class="teasers">
+        {
+          packages.map((p) => (
+            <a class="teaser" href="/packages">
+              <span class="theme">{p.theme}</span>
+              <h3>{p.name}</h3>
+              <p class="price">{p.price}</p>
+              <p class="hook">{p.hook}</p>
+            </a>
+          ))
+        }
+      </div>
+      <p class="center"><a href="/packages">See everything that’s included →</a></p>
+    </div>
+  </section>
+
+  {
+    strip.length > 0 && (
+      <section class="strip" aria-label="Recent events">
+        {strip.map((p) => <Photo photo={p} label="" width={500} ratio="1 / 1" />)}
+      </section>
+    )
+  }
+
+  <section class="section section--tint">
+    <div class="container narrow">
+      <TravelNote />
+    </div>
+  </section>
+
+  <ContactBand />
+</Layout>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(48px, 8vw, 104px) 0;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+  }
+  .hero h1 { max-width: 16ch; }
+  .hero h1 .script { display: inline-block; padding-right: 0.05em; }
+  .hero .lede { margin-bottom: 2rem; }
+  .hero-mark { position: relative; display: grid; place-items: center; }
+  .halo {
+    position: absolute;
+    inset: 4% 8%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184, 115, 79, 0.16), transparent 68%);
+  }
+  .hero-mark :global(.hero-logo) { position: relative; width: min(100%, 460px); height: auto; }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    text-decoration: none;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(8, 8, 8, 0.1); color: inherit; }
+  .card :global(.photo) { border-radius: 0; }
+  .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .card-body p { color: var(--ink-soft); font-size: 0.98rem; flex: 1; }
+  .more { color: var(--copper-deep); font-weight: 700; font-size: 0.9rem; }
+  .not-listed { text-align: center; margin: 40px 0 0; font-family: var(--serif); font-size: 1.35rem; }
+
+  .reasons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .reason { text-align: center; }
+  .num {
+    font-family: var(--serif);
+    font-size: 3rem;
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.5rem;
+    background: var(--sheen);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .reason p { color: var(--ink-soft); }
+
+  .quote { text-align: center; padding-block: clamp(56px, 8vw, 96px); }
+  .pull {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+    line-height: 1.3;
+    max-width: 30ch;
+    margin: 0 auto;
+    text-wrap: balance;
+  }
+
+  .teasers { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 0 auto; }
+  .teaser {
+    display: block;
+    padding: 36px 32px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--copper);
+    border-radius: var(--radius);
+    transition: box-shadow 0.2s;
+  }
+  .teaser:hover { color: inherit; box-shadow: 0 12px 32px rgba(8, 8, 8, 0.08); }
+  .theme { font-family: var(--script); font-size: 1.8rem; color: var(--copper-deep); line-height: 1; }
+  .teaser h3 { margin: 0.4rem 0 0.25rem; }
+  .price { font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.9rem; color: var(--copper-deep); }
+  .hook { color: var(--ink-soft); font-style: italic; margin: 0; }
+
+  .strip { display: grid; grid-template-columns: repeat(6, 1fr); }
+  .strip :global(.photo) { border-radius: 0; }
+
+  .narrow { max-width: 860px; }
+  .center { text-align: center; margin-top: 2rem; font-weight: 700; }
+
+  @media (max-width: 960px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .strip { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-mark { order: -1; }
+    .hero-mark :global(.hero-logo) { width: min(72%, 300px); }
+    .reasons, .teasers { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 520px) {
+    .cards { grid-template-columns: 1fr; }
+    .hero .btn { width: 100%; }
+  }
+</style>

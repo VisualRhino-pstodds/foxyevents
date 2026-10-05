@@ -1,0 +1,32 @@
+---
+// The line–sparkle–line ornament from the Foxy Events logo.
+interface Props {
+  align?: 'center' | 'start';
+}
+const { align = 'start' } = Astro.props;
+---
+
+<div class:list={['divider', align]} role="presentation">
+  <span class="line"></span>
+  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+    <path d="M12 0C13 7.5 16.5 11 24 12C16.5 13 13 16.5 12 24C11 16.5 7.5 13 0 12C7.5 11 11 7.5 12 0Z" />
+  </svg>
+  <span class="line"></span>
+</div>
+
+<style>
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 180px;
+    margin: 0.25rem 0 1.75rem;
+  }
+  .divider.center { margin-inline: auto; }
+  .line {
+    flex: 1;
+    height: 1px;
+    background: var(--copper);
+  }
+  svg { fill: var(--copper); flex: none; }
+</style>

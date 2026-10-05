@@ -1,0 +1,40 @@
+---
+// Renders an optimized photo, or a labeled placeholder when none exists yet.
+import { Image } from 'astro:assets';
+import type { Photo } from '../data/photos';
+
+interface Props {
+  photo?: Photo;
+  label: string;
+  width?: number;
+  ratio?: string;
+  loading?: 'lazy' | 'eager';
+  class?: string;
+}
+const { photo, label, width = 900, ratio = '4 / 3', loading = 'lazy', class: cls } = Astro.props;
+---
+
+{
+  photo ? (
+    <Image
+      src={photo.src}
+      alt={photo.alt}
+      width={width}
+      loading={loading}
+      class:list={['photo', cls]}
+      style={`aspect-ratio:${ratio}`}
+    />
+  ) : (
+    <div class:list={['photo', 'photo-placeholder', cls]} style={`aspect-ratio:${ratio}`} role="img" aria-label={label}>
+      {label}
+    </div>
+  )
+}
+
+<style>
+  .photo {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+</style>

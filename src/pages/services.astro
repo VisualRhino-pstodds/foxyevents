@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Divider from '../components/Divider.astro';
+import Photo from '../components/Photo.astro';
+import ContactBand from '../components/ContactBand.astro';
+import { services } from '../data/services';
+import { photosIn } from '../data/photos';
+---
+
+<Layout
+  title="Services"
+  description="Wedding planning and day-of coordination, birthdays, showers, graduations, business events and fundraisers in Vancouver, WA, Portland, OR and beyond."
+>
+  <section class="section page-head">
+    <div class="container section-head section-head--center">
+      <span class="eyebrow">Services we offer</span>
+      <h1>Every event, <span class="script">thoughtfully</span> handled</h1>
+      <Divider align="center" />
+      <p class="lede">
+        Intimate gatherings or grand celebrations: each event gets the same care, planning and attention to detail.
+      </p>
+    </div>
+  </section>
+
+  {
+    services.map((s, i) => (
+      <section id={s.slug} class:list={['section', 'service', { 'section--tint': i % 2 === 0 }]}>
+        <div class:list={['container', 'split', { flip: i % 2 === 1 }]}>
+          <Photo photo={photosIn(s.slug)[0]} label={s.title} width={900} ratio="4 / 3" />
+          <div>
+            <span class="eyebrow">0{i + 1}</span>
+            <h2>{s.title}</h2>
+            <Divider />
+            <p class="lede">{s.intro}</p>
+            <ul class="sparkle-list includes">
+              {s.includes.map((item) => <li>{item}</li>)}
+            </ul>
+            <div class="btn-row">
+              {s.link ? (
+                <a class="btn btn--solid" href={s.link.href}>{s.link.label}</a>
+              ) : (
+                <a class="btn btn--ghost" href="/contact">Ask about {s.title.toLowerCase()}</a>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <ContactBand heading="Have an event not listed?" body="Reach out, we can probably plan it! Tell us the date, the place, and what you’re imagining." />
+</Layout>
+
+<style>
+  .page-head { padding-bottom: 32px; }
+  .service { scroll-margin-top: 72px; }
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: center;
+  }
+  .flip > :first-child { order: 2; }
+  .includes { margin-bottom: 2rem; columns: 2; column-gap: 32px; }
+  .includes li { break-inside: avoid; }
+  @media (max-width: 800px) {
+    .split { grid-template-columns: 1fr; }
+    .flip > :first-child { order: 0; }
+  }
+  @media (max-width: 420px) {
+    .includes { columns: 1; }
+  }
+</style>

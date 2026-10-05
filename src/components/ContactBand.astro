@@ -1,0 +1,36 @@
+---
+import Divider from './Divider.astro';
+import { site } from '../data/site';
+
+interface Props {
+  heading?: string;
+  body?: string;
+}
+const {
+  heading = 'Let’s plan something memorable.',
+  body = 'Call, text or email to tell us about your event: the date, the place, and the feeling you want your guests to leave with.',
+} = Astro.props;
+---
+
+<section class="section section--dark band">
+  <div class="container inner">
+    <span class="eyebrow">Ready when you are</span>
+    <h2>{heading}</h2>
+    <Divider align="center" />
+    <p class="lede">{body}</p>
+    <div class="btn-row">
+      <a class="btn btn--solid" href={site.phoneHref}>Call {site.phone}</a>
+      <a class="btn btn--ghost" href={`mailto:${site.email}?subject=Event%20inquiry`}>Email {site.email}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band { text-align: center; }
+  .inner { max-width: 760px; }
+  .lede { margin-inline: auto; margin-bottom: 2rem; }
+  .btn-row { justify-content: center; }
+  @media (max-width: 520px) {
+    .btn { width: 100%; text-transform: none; letter-spacing: 0.02em; }
+  }
+</style>
