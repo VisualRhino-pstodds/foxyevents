@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Divider from '../components/Divider.astro';
+import FaqList from '../components/FaqList.astro';
+import ContactBand from '../components/ContactBand.astro';
+import { faqs, type Faq } from '../data/faq';
+
+const groups = [...new Set(faqs.map((f) => f.group))] as Faq['group'][];
+
+const schema = [
+  {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Layout
+  title="Wedding & Event Planning FAQ"
+  description="Answers about day-of coordination vs. full service wedding planning, pricing, booking, travel fees and the events Foxy Events plans in Vancouver, WA and Portland, OR."
+  schema={schema}
+>
+  <section class="section">
+    <div class="container narrow">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">FAQ</span>
+        <h1>Questions, <span class="script">answered</span></h1>
+        <Divider align="center" />
+        <p class="lede">
+          Don’t see your question? Call, text or email; we’re always happy to talk through your event.
+        </p>
+      </div>
+
+      {
+        groups.map((g) => (
+          <div class="group">
+            <h2>{g}</h2>
+            <FaqList items={faqs.filter((f) => f.group === g)} />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <ContactBand heading="Still have questions?" />
+</Layout>
+
+<style>
+  .narrow { max-width: 860px; }
+  .group + .group { margin-top: 56px; }
+  .group h2 {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--copper-deep);
+    margin-bottom: 0.5rem;
+  }
+</style>

@@ -5,6 +5,7 @@ import Divider from '../components/Divider.astro';
 import Photo from '../components/Photo.astro';
 import TravelNote from '../components/TravelNote.astro';
 import ContactBand from '../components/ContactBand.astro';
+import Testimonials from '../components/Testimonials.astro';
 import { site } from '../data/site';
 import { services } from '../data/services';
 import { packages } from '../data/packages';
@@ -129,9 +130,16 @@ const reasons = [
     )
   }
 
+  <Testimonials />
+
   <section class="section section--tint">
     <div class="container narrow">
       <TravelNote />
+      <p class="center">
+        Serving <a href="/areas/vancouver-wa">Vancouver</a>, <a href="/areas/portland-or">Portland</a>,
+        <a href="/areas/camas-washougal">Camas &amp; Washougal</a>, the
+        <a href="/areas/columbia-river-gorge">Columbia River Gorge</a> and beyond.
+      </p>
     </div>
   </section>
 

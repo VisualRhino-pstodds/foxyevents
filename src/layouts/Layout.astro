@@ -3,20 +3,25 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site, travel } from '../data/site';
+import { areas } from '../data/areas';
 
 interface Props {
   title?: string;
   description?: string;
+  /** Extra schema.org objects for this page (FAQ, offers, breadcrumbs…) */
+  schema?: Record<string, unknown>[];
 }
 
-const { title, description = site.description } = Astro.props;
-const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | Event Planner in Vancouver, WA`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const { title, description = site.description, schema = [] } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | Wedding & Event Planner in Vancouver, WA`;
+const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), Astro.site ?? site.url).href;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
+const business = {
   '@type': 'EventPlanner',
+  '@id': `${site.url}/#business`,
   name: site.name,
+  image: new URL('/og-image.png', site.url).href,
+  logo: new URL('/icon-512.png', site.url).href,
   slogan: site.tagline,
   description: site.description,
   url: site.url,
@@ -28,13 +33,20 @@ const jsonLd = {
     addressRegion: site.homeBase.region,
     addressCountry: 'US',
   },
-  areaServed: {
-    '@type': 'GeoCircle',
-    geoMidpoint: { '@type': 'GeoCoordinates', latitude: site.homeBase.lat, longitude: site.homeBase.lng },
-    geoRadius: `${travel.freeRadiusMiles} mi`,
-  },
-  sameAs: site.socials.map((s) => s.href),
+  geo: { '@type': 'GeoCoordinates', latitude: site.homeBase.lat, longitude: site.homeBase.lng },
+  areaServed: [
+    {
+      '@type': 'GeoCircle',
+      geoMidpoint: { '@type': 'GeoCoordinates', latitude: site.homeBase.lat, longitude: site.homeBase.lng },
+      geoRadius: `${travel.freeRadiusMiles} mi`,
+    },
+    ...areas.map((a) => ({ '@type': 'Place', name: a.name })),
+  ],
+  priceRange: '$$',
+  ...(site.socials.length > 0 && { sameAs: site.socials.map((s) => s.href) }),
 };
+
+const jsonLd = { '@context': 'https://schema.org', '@graph': [business, ...schema] };
 ---
 
 <!doctype html>

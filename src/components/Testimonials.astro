@@ -1,0 +1,60 @@
+---
+// Renders nothing until testimonials are added in src/data/testimonials.ts.
+import Divider from './Divider.astro';
+import { testimonials } from '../data/testimonials';
+---
+
+{
+  testimonials.length > 0 && (
+    <section class="section section--tint">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <span class="eyebrow">Kind words</span>
+          <h2>
+            From our <span class="script">clients</span>
+          </h2>
+          <Divider align="center" />
+        </div>
+        <div class="grid">
+          {testimonials.map((t) => (
+            <figure>
+              <blockquote>“{t.quote}”</blockquote>
+              <figcaption>
+                <strong>{t.name}</strong>
+                <span>{t.event}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  figure {
+    margin: 0;
+    padding: 36px 32px;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--copper);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+  }
+  blockquote {
+    margin: 0 0 1.5rem;
+    flex: 1;
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-style: italic;
+    line-height: 1.45;
+  }
+  figcaption { display: flex; flex-direction: column; }
+  figcaption span { color: var(--ink-soft); font-size: 0.9rem; }
+</style>

@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Divider from '../../components/Divider.astro';
+import ContactBand from '../../components/ContactBand.astro';
+import { areas, type Area } from '../../data/areas';
+import { packages } from '../../data/packages';
+import { services } from '../../data/services';
+import { site } from '../../data/site';
+
+export function getStaticPaths() {
+  return areas.map((area) => ({ params: { slug: area.slug }, props: { area } }));
+}
+
+const { area } = Astro.props as { area: Area };
+const others = areas.filter((a) => a.slug !== area.slug);
+
+const schema = [
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: site.url + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Areas We Serve', item: `${site.url}/areas` },
+      { '@type': 'ListItem', position: 3, name: area.name, item: `${site.url}/areas/${area.slug}` },
+    ],
+  },
+  {
+    '@type': 'Service',
+    name: `Wedding and event planning in ${area.name}`,
+    provider: { '@id': `${site.url}/#business` },
+    areaServed: { '@type': 'Place', name: area.name },
+    serviceType: 'Event planning',
+  },
+];
+---
+
+<Layout title={area.title} description={area.description} schema={schema}>
+  <section class="section">
+    <div class="container narrow">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a> / <a href="/areas">Areas we serve</a> / <span aria-current="page">{area.name}</span>
+      </nav>
+      <span class="eyebrow">{area.name}</span>
+      <h1>{area.headline}</h1>
+      <Divider />
+      <p class="lede">{area.intro}</p>
+      <p class="travel"><strong>{area.travelNote}</strong></p>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container local">
+      {
+        area.local.map((b) => (
+          <div>
+            <h2>{b.heading}</h2>
+            <p>{b.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">Wedding packages</span>
+        <h2>Wedding planning in {area.name}</h2>
+        <Divider align="center" />
+      </div>
+      <div class="teasers">
+        {
+          packages.map((p) => (
+            <a class="teaser" href="/packages">
+              <span class="theme">{p.theme}</span>
+              <h3>{p.name}</h3>
+              <p class="price">{p.price}</p>
+              <p class="hook">{p.hook}</p>
+            </a>
+          ))
+        }
+      </div>
+      <p class="center">
+        Partial planning and smaller packages are also available. <a href="/packages">See full package details →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container two-col">
+      <div>
+        <h2>Events we plan in {area.name}</h2>
+        <Divider />
+        <ul class="sparkle-list">
+          {services.map((s) => <li><a href={`/services#${s.slug}`}>{s.title}</a>: {s.short}</li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Also serving</h2>
+        <Divider />
+        <p class="nearby">{area.nearby.join(' · ')}</p>
+        <h3>Other areas</h3>
+        <ul class="sparkle-list">
+          {others.map((a) => <li><a href={`/areas/${a.slug}`}>{a.name}</a></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <ContactBand heading={`Planning an event in ${area.name}?`} />
+</Layout>
+
+<style>
+  .narrow { max-width: 860px; }
+  .crumbs { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+  .crumbs a { color: var(--ink-soft); }
+  .travel { margin: 0; color: var(--copper-deep); }
+
+  .local { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .local h2 { font-size: 1.6rem; }
+  .local p { color: var(--ink-soft); margin: 0; }
+
+  .teasers { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 0 auto; }
+  .teaser {
+    display: block;
+    padding: 36px 32px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--copper);
+    border-radius: var(--radius);
+  }
+  .teaser:hover { color: inherit; box-shadow: 0 12px 32px rgba(8, 8, 8, 0.08); }
+  .theme { font-family: var(--script); font-size: 1.8rem; color: var(--copper-deep); line-height: 1; }
+  .teaser h3 { margin: 0.4rem 0 0.25rem; }
+  .price { font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.9rem; color: var(--copper-deep); }
+  .hook { color: var(--ink-soft); font-style: italic; margin: 0; }
+  .center { text-align: center; margin-top: 2rem; }
+
+  .two-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 6vw, 80px); }
+  .two-col h3 { font-size: 1.3rem; margin-top: 2rem; }
+  .nearby { color: var(--ink-soft); }
+
+  @media (max-width: 800px) {
+    .local, .teasers, .two-col { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>

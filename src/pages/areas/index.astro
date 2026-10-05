@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Divider from '../../components/Divider.astro';
+import TravelNote from '../../components/TravelNote.astro';
+import ContactBand from '../../components/ContactBand.astro';
+import { areas } from '../../data/areas';
+---
+
+<Layout
+  title="Areas We Serve"
+  description="Foxy Events plans weddings and events in Vancouver, WA, Portland, OR, Camas, Washougal, the Columbia River Gorge and beyond, with no travel fees within 100 miles of Vancouver."
+>
+  <section class="section">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">Areas we serve</span>
+        <h1>Based in Vancouver, <span class="script">celebrating everywhere</span></h1>
+        <Divider align="center" />
+        <p class="lede">
+          There’s no set service area. Wherever you’re celebrating, we’ll be there. Here are some of the places we
+          work most often.
+        </p>
+      </div>
+
+      <div class="areas">
+        {
+          areas.map((a) => (
+            <a class="area" href={`/areas/${a.slug}`}>
+              <h2>{a.name}</h2>
+              <p>{a.intro}</p>
+              <span class="more">Learn more →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container narrow">
+      <TravelNote />
+    </div>
+  </section>
+
+  <ContactBand />
+</Layout>
+
+<style>
+  .areas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .area {
+    display: flex;
+    flex-direction: column;
+    padding: 36px 32px;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--copper);
+    border-radius: var(--radius);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .area:hover { color: inherit; transform: translateY(-3px); box-shadow: 0 12px 32px rgba(8, 8, 8, 0.08); }
+  .area h2 { font-size: 2rem; }
+  .area p { color: var(--ink-soft); flex: 1; }
+  .more { color: var(--copper-deep); font-weight: 700; font-size: 0.9rem; }
+  .narrow { max-width: 860px; }
+  @media (max-width: 760px) {
+    .areas { grid-template-columns: 1fr; }
+  }
+</style>

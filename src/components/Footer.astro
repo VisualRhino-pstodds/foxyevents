@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import { site, travel } from '../data/site';
+import { areas } from '../data/areas';
 const year = new Date().getFullYear();
 ---
 
@@ -32,10 +33,13 @@ const year = new Date().getFullYear();
     </div>
 
     <div>
-      <h2 class="h">Service area</h2>
-      <p>Based in {site.homeBase.city}, {site.homeBase.region} · Serving events everywhere</p>
+      <h2 class="h">Areas we serve</h2>
+      <ul class="links">
+        {areas.map((a) => <li><a href={`/areas/${a.slug}`}>{a.name}</a></li>)}
+      </ul>
       <p class="muted">
-        Free travel within {travel.freeRadiusMiles} miles. <a href="/packages#travel">Travel policy</a>
+        Based in {site.homeBase.city}, {site.homeBase.region}. Free travel within {travel.freeRadiusMiles} miles.
+        <a href="/packages#travel">Travel policy</a>
       </p>
     </div>
 
@@ -46,6 +50,8 @@ const year = new Date().getFullYear();
         <li><a href="/packages">Wedding Packages</a></li>
         <li><a href="/gallery">Gallery</a></li>
         <li><a href="/about">About</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
     </div>
   </div>

@@ -7,6 +7,7 @@ const links = [
   { href: '/packages', label: 'Packages' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/about', label: 'About' },
+  { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
 ];
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -73,7 +74,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 32px;
+    gap: 28px;
   }
   .nav-links a {
     color: var(--ink);
@@ -118,7 +119,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   .open .bars::before { transform: translateY(7px) rotate(45deg); }
   .open .bars::after { transform: translateY(-7px) rotate(-45deg); }
 
-  @media (max-width: 860px) {
+  @media (max-width: 960px) {
     .menu-btn { display: block; }
     nav {
       position: absolute;

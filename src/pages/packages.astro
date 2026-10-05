@@ -3,13 +3,37 @@ import Layout from '../layouts/Layout.astro';
 import Divider from '../components/Divider.astro';
 import TravelNote from '../components/TravelNote.astro';
 import ContactBand from '../components/ContactBand.astro';
+import FaqList from '../components/FaqList.astro';
 import { packages } from '../data/packages';
+import { faqs } from '../data/faq';
 import { site } from '../data/site';
+
+const weddingFaqs = faqs.filter((f) => f.group === 'Weddings' || f.group === 'Booking & Pricing');
+
+const schema = [
+  {
+    '@type': 'OfferCatalog',
+    name: 'Foxy Events Wedding Packages',
+    itemListElement: packages.map((p) => ({
+      '@type': 'Offer',
+      name: p.name,
+      description: p.blurb,
+      seller: { '@id': `${site.url}/#business` },
+      priceSpecification: {
+        '@type': 'PriceSpecification',
+        minPrice: Number(p.price.replace(/[^0-9]/g, '')),
+        priceCurrency: 'USD',
+      },
+      itemOffered: { '@type': 'Service', name: `Wedding ${p.name}`, serviceType: 'Wedding planning' },
+    })),
+  },
+];
 ---
 
 <Layout
-  title="Wedding Packages & Pricing"
+  title="Wedding Coordinator Packages & Pricing"
   description="Wedding day-of coordination starting at $800 and full service wedding planning starting at $4,000. Based in Vancouver, WA, with free travel within 100 miles."
+  schema={schema}
 >
   <section class="section intro">
     <div class="container">
@@ -71,6 +95,18 @@ import { site } from '../data/site';
           <a href={site.phoneHref}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a>
         </p>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <div class="section-head">
+        <span class="eyebrow">Wedding FAQ</span>
+        <h2>Common questions</h2>
+        <Divider />
+      </div>
+      <FaqList items={weddingFaqs} />
+      <p class="more-faq"><a href="/faq">See all FAQs →</a></p>
     </div>
   </section>
 
@@ -180,6 +216,7 @@ import { site } from '../data/site';
   .contact { font-weight: 700; }
 
   .narrow { max-width: 860px; }
+  .more-faq { margin-top: 1.5rem; font-weight: 700; }
 
   @media (max-width: 860px) {
     .packages { grid-template-columns: 1fr; max-width: 560px; gap: 40px; }
