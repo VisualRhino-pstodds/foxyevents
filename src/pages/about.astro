@@ -1,11 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Divider from '../components/Divider.astro';
-import Logo from '../components/Logo.astro';
 import Photo from '../components/Photo.astro';
 import ContactBand from '../components/ContactBand.astro';
-import { photosIn } from '../data/photos';
+import { photos, photosIn } from '../data/photos';
 import { site } from '../data/site';
+
+const portrait = photosIn('about')[0];
+const behindTheScenes = photos.find((p) => p.alt === 'steaming the wedding gown before the ceremony');
 
 const values = [
   { title: 'We listen first', text: 'Every plan starts with what matters most to you, not a template.' },
@@ -14,37 +16,86 @@ const values = [
 ];
 ---
 
-<Layout title="About Our Event Planning Team" description={`Meet the team behind ${site.name}, event planners based in Vancouver, WA.`}>
+<Layout
+  title="About Our Founder"
+  description={`Meet the founder of ${site.name}, a Type A event planner in Vancouver, WA who handles every detail so hosts can relax and enjoy their own wedding or celebration.`}
+>
   <section class="section">
     <div class="container split">
-      <div class="media">
-        <Photo photo={photosIn('about')[0]} label="Founder photo coming soon" width={800} ratio="4 / 5" />
-        <Logo variant="circle" width={150} class="badge" />
+      <div class="portrait">
+        <Photo photo={portrait} label="Founder photo" width={720} ratio="4 / 5" loading="eager" class="portrait-img" />
       </div>
       <div>
-        <span class="eyebrow">About us</span>
-        <h1>The team behind <span class="script">the magic</span></h1>
+        <span class="eyebrow">About</span>
+        <h1>The heart behind <span class="script">Foxy Events</span></h1>
         <Divider />
-        <!-- TODO: replace with her real story -->
         <p class="lede">
-          Foxy Events was founded on a simple idea: the people hosting an event deserve to enjoy it too.
+          I’ve always loved events and the excitement of bringing people together to celebrate life’s special moments.
         </p>
         <p>
-          [Her story: how she got into events, what she loves about it, and any notable experience or certifications.]
+          I love being part of it all: the planning, the details, the anticipation, and most of all, making sure the day
+          comes together perfectly.
         </p>
-        <p>
-          Our approach is simple: listen closely, plan thoroughly, and handle every detail so you can be a guest at your
-          own event. Whether it’s a backyard birthday or a 300-guest wedding, you get the same care.
-        </p>
+        <!-- TODO: add her first name, e.g. "— Jane, Founder of Foxy Events" -->
+        <p class="sig">Founder, Foxy Events</p>
         <div class="btn-row">
           <a class="btn btn--solid" href="/contact">Let’s talk</a>
-          <a class="btn btn--ghost" href="/services">Our services</a>
+          <a class="btn btn--ghost" href="/gallery">See our work</a>
         </div>
       </div>
     </div>
   </section>
 
   <section class="section section--tint">
+    <div class="container story">
+      <div class="story-text">
+        <h2>A planner who loves a checklist</h2>
+        <Divider />
+        <p>
+          I’m naturally Type A. I genuinely enjoy being organized, planning ahead, and thinking through every little
+          detail. I’m the person who likes a plan, a checklist, and knowing exactly what needs to happen next!
+        </p>
+        <p>
+          But I also know that even the best plans need someone who can stay calm and handle whatever the day brings.
+          That’s a big part of why I turned my love for events into Foxy Events.
+        </p>
+
+        <h2 class="second">Letting you enjoy your own event</h2>
+        <Divider />
+        <p>
+          One of the things I’m most passionate about is giving hosts the chance to actually enjoy their own event. So
+          often, the person hosting is so busy making sure everything runs smoothly that they miss the very moments they
+          worked so hard to create.
+        </p>
+        <p class="come-in"><span class="script">That’s where I come in.</span></p>
+        <p>
+          I take care of the details, keep everything organized and on track, and am the person you can rely on from
+          start to finish. My goal is to lift the stress and responsibility off your shoulders so you can relax, enjoy
+          your guests, dance, laugh, celebrate, and truly be present in the moment.
+        </p>
+      </div>
+
+      {
+        behindTheScenes && (
+          <figure class="bts">
+            <Photo photo={behindTheScenes} label="" width={640} ratio="3 / 4" />
+            <figcaption>Behind the scenes: steaming the gown before a ceremony at Edmonds Yacht Club.</figcaption>
+          </figure>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--dark quote">
+    <div class="container">
+      <p class="pull">
+        For me, it’s not just about an event looking beautiful. It’s about creating an experience where you feel
+        confident, cared for, and <span class="script">free to enjoy your day.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="container">
       <div class="values">
         {
@@ -69,22 +120,48 @@ const values = [
     gap: clamp(32px, 6vw, 80px);
     align-items: center;
   }
-  .media { position: relative; }
-  .media :global(.badge) {
+  .portrait { position: relative; }
+  .portrait::before {
+    content: '';
     position: absolute;
-    right: -24px;
-    bottom: -24px;
-    width: clamp(100px, 14vw, 150px);
-    height: auto;
-    background: var(--cream);
-    border-radius: 50%;
-    box-shadow: 0 10px 30px rgba(8, 8, 8, 0.12);
+    inset: 24px -24px -24px 24px;
+    border: 1px solid var(--copper);
+    border-radius: var(--radius);
   }
+  .portrait :global(.portrait-img) { position: relative; object-position: center 20%; }
+  .sig { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: var(--copper-deep); margin: 1.5rem 0 2rem; }
+
+  .story {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: clamp(32px, 6vw, 80px);
+    align-items: start;
+  }
+  .story-text { max-width: 640px; }
+  .story-text p { color: var(--ink-soft); }
+  .second { margin-top: 2.5rem; }
+  .come-in { font-size: 1.6rem; margin: 1.5rem 0; }
+  .come-in .script { font-size: 1.4em; }
+  .bts { margin: 0; position: sticky; top: 104px; }
+  .bts figcaption { margin-top: 12px; font-size: 0.9rem; font-style: italic; color: var(--ink-soft); }
+
+  .quote { text-align: center; }
+  .pull {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+    line-height: 1.35;
+    max-width: 32ch;
+    margin: 0 auto;
+    text-wrap: balance;
+  }
+
   .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
   .values h2 { font-size: 1.7rem; }
   .values p { color: var(--ink-soft); margin: 0; }
+
   @media (max-width: 800px) {
-    .split, .values { grid-template-columns: 1fr; }
-    .media :global(.badge) { right: 8px; bottom: -20px; }
+    .split, .story, .values { grid-template-columns: 1fr; }
+    .portrait { max-width: 420px; margin-inline: auto; width: calc(100% - 24px); margin-left: 0; }
+    .bts { position: static; max-width: 420px; }
   }
 </style>
