@@ -17,8 +17,17 @@ const values = [
 ---
 
 <Layout
-  title="About Our Founder"
-  description={`Meet the founder of ${site.name}, a Type A event planner in Vancouver, WA who handles every detail so hosts can relax and enjoy their own wedding or celebration.`}
+  title="Meet Peggy Foxworthy, Founder"
+  description={`Meet Peggy Foxworthy, founder of ${site.name}: a Type A event planner in Vancouver, WA who handles every detail so hosts can relax and enjoy their own wedding or celebration.`}
+  schema={[
+    {
+      '@type': 'Person',
+      name: 'Peggy Foxworthy',
+      jobTitle: 'Founder & Event Planner',
+      worksFor: { '@id': `${site.url}/#business` },
+      image: portrait ? new URL(portrait.src.src, site.url).href : undefined,
+    },
+  ]}
 >
   <section class="section">
     <div class="container split">
@@ -26,18 +35,17 @@ const values = [
         <Photo photo={portrait} label="Founder photo" width={720} ratio="4 / 5" loading="eager" class="portrait-img" />
       </div>
       <div>
-        <span class="eyebrow">About</span>
+        <span class="eyebrow">Meet Peggy</span>
         <h1>The heart behind <span class="script">Foxy Events</span></h1>
         <Divider />
         <p class="lede">
-          I’ve always loved events and the excitement of bringing people together to celebrate life’s special moments.
+          Hi, I’m Peggy! I’ve always loved events and the excitement of bringing people together to celebrate life’s special moments.
         </p>
         <p>
           I love being part of it all: the planning, the details, the anticipation, and most of all, making sure the day
           comes together perfectly.
         </p>
-        <!-- TODO: add her first name, e.g. "— Jane, Founder of Foxy Events" -->
-        <p class="sig">Founder, Foxy Events</p>
+        <p class="sig">— Peggy Foxworthy, Founder</p>
         <div class="btn-row">
           <a class="btn btn--solid" href="/contact">Let’s talk</a>
           <a class="btn btn--ghost" href="/gallery">See our work</a>
