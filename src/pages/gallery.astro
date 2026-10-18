@@ -3,89 +3,114 @@ import Layout from '../layouts/Layout.astro';
 import Divider from '../components/Divider.astro';
 import Photo from '../components/Photo.astro';
 import ContactBand from '../components/ContactBand.astro';
-import { services } from '../data/services';
-import { photos } from '../data/photos';
+import { events } from '../data/events';
+import { photos, photosOfEvent } from '../data/photos';
 
-const gallery = photos.filter((p) => p.category !== 'about');
-const filters = services.filter((s) => gallery.some((p) => p.category === s.slug));
+const shownEvents = events.filter((e) => photosOfEvent(e.slug).length > 0);
+// Photos not tied to an event (dropped straight into a category folder)
+const loose = photos.filter((p) => p.category !== 'about' && !p.event);
 ---
 
-<Layout title="Wedding & Event Gallery" description="Photos of weddings, birthdays, corporate events and celebrations planned by Foxy Events.">
+<Layout
+  title="Wedding & Event Gallery"
+  description="Real weddings coordinated by Foxy Events at Timberline Lodge on Mt. Hood, Edmonds Yacht Club and Oregon Garden Resort, plus celebrations across the Pacific Northwest."
+>
   <section class="section">
     <div class="container">
       <div class="section-head section-head--center">
         <span class="eyebrow">Gallery</span>
         <h1>Moments we’ve <span class="script">made</span></h1>
         <Divider align="center" />
+        <p class="lede">A look behind the scenes at real events we’ve coordinated.</p>
       </div>
 
       {
-        gallery.length === 0 ? (
-          <p class="empty photo-placeholder">
-            Photos coming soon.
-          </p>
-        ) : (
-          <>
-            {filters.length > 1 && (
-              <div class="filters" role="group" aria-label="Filter photos">
-                <button class="chip active" data-filter="all" aria-pressed="true">All</button>
-                {filters.map((s) => (
-                  <button class="chip" data-filter={s.slug} aria-pressed="false">
-                    {s.title}
-                  </button>
-                ))}
-              </div>
-            )}
+        shownEvents.length > 0 && (
+          <nav class="jump" aria-label="Jump to event">
+            {shownEvents.map((e) => (
+              <a class="chip" href={`#${e.slug}`}>
+                {e.venue}
+              </a>
+            ))}
+          </nav>
+        )
+      }
+
+      {
+        shownEvents.map((e) => (
+          <article class="event" id={e.slug}>
+            <header class="event-head">
+              <span class="eyebrow">
+                {e.location} · {e.date}
+              </span>
+              <h2>{e.title}</h2>
+              <p class="venue">{e.venue}</p>
+              <p class="summary">{e.summary}</p>
+              {e.area && (
+                <p class="area-link">
+                  <a href={`/areas/${e.area}`}>More about events in this area →</a>
+                </p>
+              )}
+            </header>
             <div class="grid">
-              {gallery.map((p) => (
-                <figure data-category={p.category}>
-                  <Photo photo={p} label="" width={700} ratio="auto" />
+              {photosOfEvent(e.slug).map((p) => (
+                <figure>
+                  <Photo photo={p} label="" width={640} ratio="auto" />
                 </figure>
               ))}
             </div>
-          </>
+          </article>
+        ))
+      }
+
+      {
+        loose.length > 0 && (
+          <article class="event">
+            <header class="event-head">
+              <h2>More celebrations</h2>
+            </header>
+            <div class="grid">
+              {loose.map((p) => (
+                <figure>
+                  <Photo photo={p} label="" width={640} ratio="auto" />
+                </figure>
+              ))}
+            </div>
+          </article>
         )
       }
+
+      {shownEvents.length === 0 && loose.length === 0 && <p class="empty photo-placeholder">Photos coming soon.</p>}
     </div>
   </section>
 
   <ContactBand />
 </Layout>
 
-<script>
-  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
-  const items = document.querySelectorAll<HTMLElement>('.grid figure');
-  chips.forEach((chip) =>
-    chip.addEventListener('click', () => {
-      const f = chip.dataset.filter;
-      chips.forEach((c) => {
-        c.classList.toggle('active', c === chip);
-        c.setAttribute('aria-pressed', String(c === chip));
-      });
-      items.forEach((el) => (el.hidden = f !== 'all' && el.dataset.category !== f));
-    }),
-  );
-</script>
-
 <style>
-  .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 40px; }
+  .jump { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 24px; }
   .chip {
-    font: inherit;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    text-decoration: none;
     padding: 10px 18px;
-    min-height: 44px;
     border: 1px solid var(--ink);
     border-radius: 999px;
-    background: transparent;
     color: var(--ink);
-    cursor: pointer;
   }
-  .chip.active, .chip:hover { background: var(--ink); color: var(--cream); }
-  .grid { columns: 3 280px; column-gap: 16px; }
-  figure { margin: 0 0 16px; break-inside: avoid; }
-  figure[hidden] { display: none; }
+  .chip:hover { background: var(--ink); color: var(--cream); }
+
+  .event { padding-top: clamp(48px, 7vw, 80px); scroll-margin-top: 72px; }
+  .event + .event { border-top: 1px solid var(--line); margin-top: clamp(48px, 7vw, 80px); }
+  .event-head { max-width: 720px; margin-bottom: 32px; }
+  .event-head h2 { margin-bottom: 0.15em; }
+  .venue { font-family: var(--serif); font-size: 1.35rem; font-style: italic; color: var(--copper-deep); margin-bottom: 0.75rem; }
+  .summary { color: var(--ink-soft); }
+  .area-link { font-weight: 700; margin: 0; }
+
+  .grid { columns: 3 260px; column-gap: 14px; }
+  figure { margin: 0 0 14px; break-inside: avoid; }
   .empty { min-height: 240px; border-radius: var(--radius); }
 </style>

@@ -17,6 +17,7 @@ npm run build    # outputs to dist/
 | FAQ questions and answers (also shown on Packages) | `src/data/faq.ts` |
 | Service-area pages (Vancouver, Portland, Camas, Gorge) | `src/data/areas.ts` |
 | Client testimonials (section hides until one is added) | `src/data/testimonials.ts` |
+| Past events shown in the Gallery (venue, date, description) | `src/data/events.ts` |
 | Bio | `src/pages/about.astro` |
 | Domain, and `launched: true` to allow search engines | `src/data/site.ts` |
 
@@ -24,7 +25,8 @@ Search for `TODO` to find every placeholder.
 
 ## Photos and logo
 - **Logos** live in `src/assets/brand/`. They were cut out from her white-background PNGs. If she gets transparent PNG/SVG versions from her designer, replace those files, keeping the same names (`-light` versions have cream lettering for dark backgrounds).
-- **Event photos:** drop them into `src/assets/photos/weddings/`, `social/`, `business/` or `fundraising/`. They appear on the Home, Services and Gallery pages. The first photo in each folder (alphabetically) is that service's cover photo.
+- **Event photos:** put each event in its own folder inside its category, e.g. `src/assets/photos/weddings/2026-08-09-mt-hood-timberline/`, then add a matching entry (venue, location, date, short description) to `src/data/events.ts` so the Gallery shows it as its own section. Categories: `weddings/`, `social/`, `business/`, `fundraising/`.
+- Start file names with a number to set their order (`01-…`, `02-…`). The first photo in a category becomes that service's cover photo on the Home and Services pages.
 - **About photo:** `src/assets/photos/about/`.
 - Name files descriptively (`garden-ceremony-arch.jpg`), because the file name becomes the alt text.
 

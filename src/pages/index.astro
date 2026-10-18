@@ -9,9 +9,9 @@ import Testimonials from '../components/Testimonials.astro';
 import { site } from '../data/site';
 import { services } from '../data/services';
 import { packages } from '../data/packages';
-import { photos, photosIn } from '../data/photos';
+import { mixedPhotos, photosIn } from '../data/photos';
 
-const strip = photos.filter((p) => p.category !== 'about').slice(0, 6);
+const strip = mixedPhotos(6);
 const reasons = [
   { title: 'Effortless for you', text: 'One team handling vendors, timelines and every detail in between.' },
   { title: 'Memorable for guests', text: 'Thoughtful design and flow that make an event feel personal, not generic.' },
@@ -124,9 +124,9 @@ const reasons = [
 
   {
     strip.length > 0 && (
-      <section class="strip" aria-label="Recent events">
+      <a class="strip" href="/gallery" aria-label="See the gallery of recent events">
         {strip.map((p) => <Photo photo={p} label="" width={500} ratio="1 / 1" />)}
-      </section>
+      </a>
     )
   }
 
@@ -237,6 +237,7 @@ const reasons = [
   .hook { color: var(--ink-soft); font-style: italic; margin: 0; }
 
   .strip { display: grid; grid-template-columns: repeat(6, 1fr); }
+  .strip:hover { opacity: 0.92; }
   .strip :global(.photo) { border-radius: 0; }
 
   .narrow { max-width: 860px; }

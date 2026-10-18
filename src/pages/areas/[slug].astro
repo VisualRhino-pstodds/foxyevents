@@ -6,6 +6,9 @@ import { areas, type Area } from '../../data/areas';
 import { packages } from '../../data/packages';
 import { services } from '../../data/services';
 import { site } from '../../data/site';
+import { events } from '../../data/events';
+import { photosOfEvent } from '../../data/photos';
+import Photo from '../../components/Photo.astro';
 
 export function getStaticPaths() {
   return areas.map((area) => ({ params: { slug: area.slug }, props: { area } }));
@@ -13,6 +16,7 @@ export function getStaticPaths() {
 
 const { area } = Astro.props as { area: Area };
 const others = areas.filter((a) => a.slug !== area.slug);
+const localEvents = events.filter((e) => e.area === area.slug && photosOfEvent(e.slug).length > 0);
 
 const schema = [
   {
@@ -60,7 +64,32 @@ const schema = [
     </div>
   </section>
 
-  <section class="section">
+  {
+    localEvents.map((e) => (
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Recent event · {e.date}</span>
+            <h2>{e.title}</h2>
+            <Divider />
+            <p class="lede">
+              <strong>{e.venue}</strong>, {e.location}. {e.summary}
+            </p>
+          </div>
+          <div class="event-photos">
+            {photosOfEvent(e.slug).slice(0, 4).map((p) => (
+              <Photo photo={p} label="" width={640} ratio="4 / 3" />
+            ))}
+          </div>
+          <p class="center">
+            <a href={`/gallery#${e.slug}`}>See more photos from this wedding →</a>
+          </p>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class:list={['section', { 'section--tint': localEvents.length > 0 }]}>
     <div class="container">
       <div class="section-head section-head--center">
         <span class="eyebrow">Wedding packages</span>
@@ -85,7 +114,7 @@ const schema = [
     </div>
   </section>
 
-  <section class="section section--tint">
+  <section class:list={['section', { 'section--tint': localEvents.length === 0 }]}>
     <div class="container two-col">
       <div>
         <h2>Events we plan in {area.name}</h2>
@@ -136,6 +165,8 @@ const schema = [
   .price { font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.9rem; color: var(--copper-deep); }
   .hook { color: var(--ink-soft); font-style: italic; margin: 0; }
   .center { text-align: center; margin-top: 2rem; }
+  .event-photos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .teaser { background: var(--cream); }
 
   .two-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(32px, 6vw, 80px); }
   .two-col h3 { font-size: 1.3rem; margin-top: 2rem; }
@@ -143,5 +174,6 @@ const schema = [
 
   @media (max-width: 800px) {
     .local, .teasers, .two-col { grid-template-columns: 1fr; gap: 32px; }
+    .event-photos { grid-template-columns: 1fr 1fr; }
   }
 </style>
