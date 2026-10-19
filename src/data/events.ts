@@ -57,18 +57,19 @@ export const events: PastEvent[] = [
     slug: 'love-is-brewing-bridal-shower',
     label: 'Bridal Shower',
     title: 'A “Love Is Brewing” Bridal Shower',
-    // TODO: location (city)
-    location: 'Bridal shower',
+    location: 'Washougal, WA',
     date: 'June 2025',
     summary:
       'A coffee-themed bridal shower with a latte-toned balloon arch, coffee-cup favors for every guest, sweet bites on heart picks, and a drink station for toasting the bride.',
+
+    area: 'camas-washougal',
   },
   {
     slug: 'skamania-fire-pancake-feed',
     label: 'Fire Dept. Pancake Feed',
     title: 'Skamania County Fire Pancake Feed',
-    // TODO: date
     location: 'Skamania County, WA',
+    date: '2024',
     summary:
       'A community pancake breakfast in the fire station bay: long tables dressed in red and white, fire-engine decorations, and a serving line ready for a hungry crowd.',
     area: 'columbia-river-gorge',
