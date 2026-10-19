@@ -69,11 +69,11 @@ const schema = [
       <section class="section">
         <div class="container">
           <div class="section-head">
-            <span class="eyebrow">Recent event · {e.date}</span>
+            <span class="eyebrow">{['Recent event', e.date].filter(Boolean).join(' · ')}</span>
             <h2>{e.title}</h2>
             <Divider />
             <p class="lede">
-              <strong>{e.venue}</strong>, {e.location}. {e.summary}
+              <strong>{e.venue ?? e.title}</strong>, {e.location}. {e.summary}
             </p>
           </div>
           <div class="event-photos">
@@ -82,7 +82,7 @@ const schema = [
             ))}
           </div>
           <p class="center">
-            <a href={`/gallery#${e.slug}`}>See more photos from this wedding →</a>
+            <a href={`/gallery#${e.slug}`}>See more photos from this event →</a>
           </p>
         </div>
       </section>

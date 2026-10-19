@@ -6,9 +6,9 @@
 export type PastEvent = {
   slug: string;
   title: string;
-  venue: string;
+  venue?: string;
   location: string;
-  date: string; // display text, e.g. "August 2026"
+  date?: string; // display text, e.g. "August 2026"
   summary: string;
   area?: string; // slug of a related /areas page
 };
@@ -40,6 +40,23 @@ export const events: PastEvent[] = [
     date: 'August 2026',
     summary:
       'A ceremony beneath Mt. Hood with a rustic wooden arch, then a laid-back, candlelit reception in Hood River.',
+    area: 'columbia-river-gorge',
+  },
+  {
+    slug: 'fall-pumpkin-baby-shower',
+    title: 'A “Little Pumpkin” Baby Shower',
+    // TODO: venue, location and date
+    location: 'Baby shower',
+    summary:
+      'A cozy fall celebration for a baby boy: an “It’s a Boy” pumpkin and hay bale welcome, a balloon arch with a rocking chair, a brunch buffet, cupcakes, games and prize baskets.',
+  },
+  {
+    slug: 'skamania-fire-district-4-open-house',
+    title: 'Skamania County Fire District 4 Open House',
+    // TODO: date
+    location: 'Skamania County, WA',
+    summary:
+      'A community open house and fundraiser for the fire district, with Sparky and Smokey Bear greeting guests, fire engine tours, a hands-on hose demo for kids, treats, and fire-safety giveaways.',
     area: 'columbia-river-gorge',
   },
 ];

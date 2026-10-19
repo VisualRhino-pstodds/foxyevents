@@ -13,7 +13,7 @@ const loose = photos.filter((p) => p.category !== 'about' && !p.event);
 
 <Layout
   title="Wedding & Event Gallery"
-  description="Real weddings coordinated by Foxy Events at Timberline Lodge on Mt. Hood, Edmonds Yacht Club and Oregon Garden Resort, plus celebrations across the Pacific Northwest."
+  description="Real events coordinated by Foxy Events: weddings at Timberline Lodge on Mt. Hood, Edmonds Yacht Club and Oregon Garden Resort, a fall baby shower, and the Skamania County Fire District 4 open house."
 >
   <section class="section">
     <div class="container">
@@ -29,7 +29,7 @@ const loose = photos.filter((p) => p.category !== 'about' && !p.event);
           <nav class="jump" aria-label="Jump to event">
             {shownEvents.map((e) => (
               <a class="chip" href={`#${e.slug}`}>
-                {e.venue}
+                {e.venue ?? e.title}
               </a>
             ))}
           </nav>
@@ -40,11 +40,9 @@ const loose = photos.filter((p) => p.category !== 'about' && !p.event);
         shownEvents.map((e) => (
           <article class="event" id={e.slug}>
             <header class="event-head">
-              <span class="eyebrow">
-                {e.location} · {e.date}
-              </span>
+              <span class="eyebrow">{[e.location, e.date].filter(Boolean).join(' · ')}</span>
               <h2>{e.title}</h2>
-              <p class="venue">{e.venue}</p>
+              {e.venue && <p class="venue">{e.venue}</p>}
               <p class="summary">{e.summary}</p>
               {e.area && (
                 <p class="area-link">

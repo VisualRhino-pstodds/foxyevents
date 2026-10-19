@@ -45,9 +45,9 @@ export const services: Service[] = [
   {
     slug: 'fundraising',
     title: 'Fundraising & Charity',
-    short: 'Galas, auctions and benefit events that let your cause shine.',
+    short: 'Galas, benefit events and community open houses that let your cause shine.',
     intro:
       'A great fundraiser runs smoothly so guests can focus on giving. We coordinate the details and the day so your team can focus on your mission and your donors.',
-    includes: ['Galas and benefit dinners', 'Auctions', 'Community fundraisers', 'Charity celebrations'],
+    includes: ['Galas and benefit dinners', 'Auctions', 'Community fundraisers', 'Fire department and public agency open houses', 'Charity celebrations'],
   },
 ];
