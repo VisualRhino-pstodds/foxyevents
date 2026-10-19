@@ -65,7 +65,7 @@ export const faqs: Faq[] = [
   {
     group: 'Other Events',
     q: 'Do you plan events other than weddings?',
-    a: 'Absolutely. We plan birthdays, bridal and baby showers, graduations, anniversaries, holiday gatherings, business events, and fundraising and charity events. If your event isn’t listed, reach out; we can probably plan it!',
+    a: 'Absolutely. We plan birthdays, bridal and baby showers, graduations, anniversaries, holiday gatherings, business events, community events like open houses and pancake feeds, and fundraisers. If your event isn’t listed, reach out; we can probably plan it!',
   },
   {
     group: 'Other Events',

@@ -44,10 +44,17 @@ export const services: Service[] = [
   },
   {
     slug: 'fundraising',
-    title: 'Fundraising & Charity',
-    short: 'Galas, benefit events and community open houses that let your cause shine.',
+    title: 'Community & Fundraising',
+    short: 'Open houses, pancake feeds, benefit events and fundraisers that bring a community together.',
     intro:
-      'A great fundraiser runs smoothly so guests can focus on giving. We coordinate the details and the day so your team can focus on your mission and your donors.',
-    includes: ['Galas and benefit dinners', 'Auctions', 'Community fundraisers', 'Fire department and public agency open houses', 'Charity celebrations'],
+      'Community events and fundraisers run best when organizers can focus on people, not logistics. We coordinate the setup, flow and details so your team can greet neighbors, thank supporters and celebrate your cause.',
+    includes: [
+      'Community open houses',
+      'Pancake feeds and community breakfasts',
+      'Fire department and public agency events',
+      'Galas and benefit dinners',
+      'Auctions and fundraisers',
+      'Charity celebrations',
+    ],
   },
 ];

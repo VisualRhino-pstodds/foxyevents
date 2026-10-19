@@ -6,6 +6,7 @@
 export type PastEvent = {
   slug: string;
   title: string;
+  label?: string; // short name for the Gallery's jump buttons
   venue?: string;
   location: string;
   date?: string; // display text, e.g. "August 2026"
@@ -44,17 +45,40 @@ export const events: PastEvent[] = [
   },
   {
     slug: 'fall-pumpkin-baby-shower',
+    label: 'Baby Shower',
     title: 'A “Little Pumpkin” Baby Shower',
-    // TODO: venue, location and date
-    location: 'Baby shower',
+    location: 'Washougal, WA',
+    date: '2026',
     summary:
       'A cozy fall celebration for a baby boy: an “It’s a Boy” pumpkin and hay bale welcome, a balloon arch with a rocking chair, a brunch buffet, cupcakes, games and prize baskets.',
+    area: 'camas-washougal',
+  },
+  {
+    slug: 'love-is-brewing-bridal-shower',
+    label: 'Bridal Shower',
+    title: 'A “Love Is Brewing” Bridal Shower',
+    // TODO: location (city)
+    location: 'Bridal shower',
+    date: 'June 2025',
+    summary:
+      'A coffee-themed bridal shower with a latte-toned balloon arch, coffee-cup favors for every guest, sweet bites on heart picks, and a drink station for toasting the bride.',
+  },
+  {
+    slug: 'skamania-fire-pancake-feed',
+    label: 'Fire Dept. Pancake Feed',
+    title: 'Skamania County Fire Pancake Feed',
+    // TODO: date
+    location: 'Skamania County, WA',
+    summary:
+      'A community pancake breakfast in the fire station bay: long tables dressed in red and white, fire-engine decorations, and a serving line ready for a hungry crowd.',
+    area: 'columbia-river-gorge',
   },
   {
     slug: 'skamania-fire-district-4-open-house',
+    label: 'Fire District Open House',
     title: 'Skamania County Fire District 4 Open House',
-    // TODO: date
     location: 'Skamania County, WA',
+    date: '2024',
     summary:
       'A community open house and fundraiser for the fire district, with Sparky and Smokey Bear greeting guests, fire engine tours, a hands-on hose demo for kids, treats, and fire-safety giveaways.',
     area: 'columbia-river-gorge',
