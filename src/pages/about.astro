@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Divider from '../components/Divider.astro';
 import Photo from '../components/Photo.astro';
 import ContactBand from '../components/ContactBand.astro';
+import Credentials from '../components/Credentials.astro';
 import { photos, photosIn } from '../data/photos';
 import { site } from '../data/site';
 
@@ -46,6 +47,7 @@ const values = [
           comes together perfectly.
         </p>
         <p class="sig">— Peggy Foxworthy, Founder</p>
+        <Credentials class="about-cred" />
         <div class="btn-row">
           <a class="btn btn--solid" href="/contact">Let’s talk</a>
           <a class="btn btn--ghost" href="/gallery">See our work</a>
@@ -137,7 +139,8 @@ const values = [
     border-radius: var(--radius);
   }
   .portrait :global(.portrait-img) { position: relative; object-position: center 20%; }
-  .sig { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: var(--copper-deep); margin: 1.5rem 0 2rem; }
+  .sig { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: var(--copper-deep); margin: 1.5rem 0 1rem; }
+  .split :global(.about-cred) { margin-bottom: 2rem; }
 
   .story {
     display: grid;

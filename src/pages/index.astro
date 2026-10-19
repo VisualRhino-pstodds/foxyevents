@@ -6,6 +6,7 @@ import Photo from '../components/Photo.astro';
 import TravelNote from '../components/TravelNote.astro';
 import ContactBand from '../components/ContactBand.astro';
 import Testimonials from '../components/Testimonials.astro';
+import Credentials from '../components/Credentials.astro';
 import { site } from '../data/site';
 import { services } from '../data/services';
 import { packages } from '../data/packages';
@@ -35,6 +36,7 @@ const reasons = [
           <a class="btn btn--solid" href={site.phoneHref}>Call {site.phone}</a>
           <a class="btn btn--ghost" href={`mailto:${site.email}?subject=Event%20inquiry`}>Email Us</a>
         </div>
+        <Credentials class="hero-cred" />
       </div>
       <div class="hero-mark">
         <div class="halo" aria-hidden="true"></div>
@@ -161,6 +163,7 @@ const reasons = [
   .hero h1 { max-width: 16ch; }
   .hero h1 .script { display: inline-block; padding-right: 0.05em; }
   .hero .lede { margin-bottom: 2rem; }
+  .hero :global(.hero-cred) { margin-top: 1.5rem; }
   .hero-mark { position: relative; display: grid; place-items: center; }
   .halo {
     position: absolute;

@@ -4,11 +4,12 @@ export const site = {
   name: 'Foxy Events',
   tagline: 'Making Your Events Effortless & Memorable',
   description:
-    'Foxy Events is an event planning and coordination team based in Vancouver, WA, offering wedding planning, day-of coordination, social celebrations, business events and fundraisers.',
+    'Foxy Events is an event planning and coordination team based in Vancouver, WA, offering wedding planning, day-of coordination, social celebrations, business events and fundraisers. Licensed, insured and bonded.',
   // Switch to her real domain and set `launched: true` when the domain is connected.
   // While false, search engines are asked not to index the temporary vercel.app address.
   url: 'https://foxyeventsco.vercel.app',
   launched: false,
+  credentials: ['Licensed', 'Insured', 'Bonded'],
   phone: '(360) 921-2352',
   phoneHref: 'tel:+13609212352',
   email: 'foxyevents360@gmail.com',

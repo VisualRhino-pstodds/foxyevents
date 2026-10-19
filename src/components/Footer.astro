@@ -2,6 +2,7 @@
 import Logo from './Logo.astro';
 import { site, travel } from '../data/site';
 import { areas } from '../data/areas';
+import Credentials from './Credentials.astro';
 const year = new Date().getFullYear();
 ---
 
@@ -10,6 +11,7 @@ const year = new Date().getFullYear();
     <div class="brand">
       <Logo variant="stacked" tone="light" width={200} class="footer-logo" />
       <p class="tag">Making your events <span class="script">effortless</span> &amp; <span class="script">memorable</span></p>
+      <Credentials class="foot-cred" />
     </div>
 
     <div>
@@ -72,6 +74,7 @@ const year = new Date().getFullYear();
   }
   .brand :global(.footer-logo) { width: 170px; height: auto; }
   .tag { margin-top: 1rem; font-family: var(--serif); font-size: 1.2rem; color: rgba(247, 240, 232, 0.85); }
+  .brand :global(.foot-cred) { margin-top: 1.25rem; font-size: 0.72rem; }
   .h {
     font-family: var(--sans);
     font-size: 0.8rem;

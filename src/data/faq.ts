@@ -43,6 +43,12 @@ export const faqs: Faq[] = [
   },
   {
     group: 'Booking & Pricing',
+    q: 'Are you licensed, insured, and bonded?',
+    // REVIEW: confirm she can provide a certificate of insurance to venues
+    a: 'Yes. Foxy Events is licensed, insured, and bonded. Many venues require this from planners and coordinators, and we’re happy to provide proof of insurance to your venue when they ask for it.',
+  },
+  {
+    group: 'Booking & Pricing',
     q: 'How do we get started?',
     a: 'Call or text us at (360) 921-2352 or email foxyevents360@gmail.com with your date, location, and estimated guest count. We’ll set up a consultation to talk through your event and recommend the right package.',
   },
