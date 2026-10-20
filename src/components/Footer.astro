@@ -59,7 +59,7 @@ const year = new Date().getFullYear();
   </div>
   <div class="container legal">
     <span>© {year} {site.name}. All rights reserved.</span>
-    <span>Site design by Visual Rhino</span>
+    <span>Site design by <a class="credit" href="https://www.visualrhino.com/" target="_blank" rel="noopener">Visual Rhino</a></span>
   </div>
 </footer>
 
@@ -103,6 +103,8 @@ const year = new Date().getFullYear();
     justify-content: space-between;
     gap: 8px 24px;
   }
+  .legal .credit { color: inherit; }
+  .legal .credit:hover { color: var(--copper); }
   @media (max-width: 860px) {
     .grid { grid-template-columns: 1fr 1fr; }
   }
