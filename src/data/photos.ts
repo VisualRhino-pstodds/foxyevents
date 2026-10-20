@@ -42,3 +42,20 @@ export function mixedPhotos(count: number): Photo[] {
   }
   return out;
 }
+
+// Stock fallbacks (src/assets/stock/<category>.jpg), used only as a service's
+// cover photo until real photos exist for it. Never shown in the Gallery.
+const stockModules = import.meta.glob<{ default: ImageMetadata }>('../assets/stock/*.{jpg,jpeg,png,webp}', {
+  eager: true,
+});
+const stockAlt: Record<string, string> = {
+  business: 'evening banquet room with round tables set for a company dinner',
+};
+
+/** A service's cover: its first real photo, else a stock fallback. */
+export function coverFor(category: string): Photo | undefined {
+  const real = photosIn(category)[0];
+  if (real) return real;
+  const entry = Object.entries(stockModules).find(([path]) => path.match(/stock\/([^/.]+)\./)?.[1] === category);
+  return entry && { src: entry[1].default, category, alt: stockAlt[category] ?? `${category} event` };
+}

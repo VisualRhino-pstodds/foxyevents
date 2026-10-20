@@ -28,6 +28,7 @@ Search for `TODO` to find every placeholder.
 - **Event photos:** put each event in its own folder inside its category, e.g. `src/assets/photos/weddings/2026-08-09-mt-hood-timberline/`, then add a matching entry (venue, location, date, short description) to `src/data/events.ts` so the Gallery shows it as its own section. Categories: `weddings/`, `social/`, `business/`, `fundraising/`.
 - Start file names with a number to set their order (`01-…`, `02-…`). The first photo in a category becomes that service's cover photo on the Home and Services pages.
 - **About photo:** `src/assets/photos/about/`.
+- **Stock fallbacks:** `src/assets/stock/<category>.jpg` is used as a service's card photo only until real photos exist in that category (currently `business.jpg`, from Unsplash, free license). It's never shown in the Gallery. Once Peggy has real business event photos, add them under `src/assets/photos/business/` and they take over automatically.
 - Name files descriptively (`garden-ceremony-arch.jpg`), because the file name becomes the alt text.
 
 ## Launch checklist (when foxyeventsco.com is connected in Vercel)
