@@ -57,7 +57,10 @@ const year = new Date().getFullYear();
       </ul>
     </div>
   </div>
-  <div class="container legal">© {year} {site.name}. All rights reserved.</div>
+  <div class="container legal">
+    <span>© {year} {site.name}. All rights reserved.</span>
+    <span>Site design by Visual Rhino</span>
+  </div>
 </footer>
 
 <style>
@@ -95,6 +98,10 @@ const year = new Date().getFullYear();
     border-top: 1px solid rgba(247, 240, 232, 0.15);
     color: rgba(247, 240, 232, 0.55);
     font-size: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
   }
   @media (max-width: 860px) {
     .grid { grid-template-columns: 1fr 1fr; }
