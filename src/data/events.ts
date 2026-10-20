@@ -65,6 +65,16 @@ export const events: PastEvent[] = [
     area: 'camas-washougal',
   },
   {
+    slug: 'skamania-firefighter-taco-feed-2025',
+    label: 'Firefighter Taco Feed',
+    title: '2025 Annual Firefighter Taco Feed Fundraiser',
+    location: 'Washougal, WA',
+    date: '2025',
+    summary:
+      'A packed house for the Skamania County firefighters’ annual taco feed fundraiser: long tables of raffle and auction baskets, fire-engine decorations, and a dining hall full of neighbors supporting their local fire department.',
+    area: 'camas-washougal',
+  },
+  {
     slug: 'skamania-fire-pancake-feed',
     label: 'Fire Dept. Pancake Feed',
     title: 'Skamania County Fire Pancake Feed',
