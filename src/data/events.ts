@@ -98,10 +98,10 @@ export const events: PastEvent[] = [
     slug: 'welcome-baby-shower',
     label: 'Welcome Baby Shower',
     title: 'A “Welcome Baby” Shower',
-    // TODO: location (city)
-    location: 'Baby shower',
+    location: 'Washougal, WA',
     date: '2023',
     summary:
       'A bright, airy celebration with a blue, green and gold balloon arch and rocking chair, a brunch buffet under the “Welcome Baby” banner, a cupcake stand, and a teddy bear keepsake table. A gathering filled with love, laughter and special touches for a growing family.',
+    area: 'camas-washougal',
   },
 ];
