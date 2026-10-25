@@ -44,13 +44,12 @@ export const events: PastEvent[] = [
     area: 'columbia-river-gorge',
   },
   {
-    slug: 'fall-pumpkin-baby-shower',
-    label: 'Little Pumpkin Shower',
-    title: 'A “Little Pumpkin” Baby Shower',
+    slug: 'baby-boy-showers',
+    label: 'Baby Boy Showers',
+    title: 'Baby Boy Showers',
     location: 'Washougal, WA',
-    date: '2025',
     summary:
-      'A cozy fall celebration for a baby boy, with an “It’s a Boy” pumpkin and hay bale welcome, a white balloon garland, cupcakes, games and prize baskets. A gathering filled with love, laughter and special touches for a growing family.',
+      'Two sweet celebrations welcoming baby boys, each with its own style: a cozy fall “Little Pumpkin” shower and a fresh spring “Welcome Baby” shower. Both featured thoughtful details like balloon arches, a rocking chair, brunch buffets, cupcakes, games and prize baskets, and each was filled with love, laughter and special touches to celebrate two growing families.',
     area: 'camas-washougal',
   },
   {
@@ -93,15 +92,5 @@ export const events: PastEvent[] = [
     summary:
       'A community open house and fundraiser for the fire district, with Sparky and Smokey Bear greeting guests, fire engine tours, a hands-on hose demo for kids, treats, and fire-safety giveaways.',
     area: 'columbia-river-gorge',
-  },
-  {
-    slug: 'welcome-baby-shower',
-    label: 'Welcome Baby Shower',
-    title: 'A “Welcome Baby” Shower',
-    location: 'Washougal, WA',
-    date: '2023',
-    summary:
-      'A bright, airy celebration with a blue, green and gold balloon arch and rocking chair, a brunch buffet under the “Welcome Baby” banner, a cupcake stand, and a teddy bear keepsake table. A gathering filled with love, laughter and special touches for a growing family.',
-    area: 'camas-washougal',
   },
 ];
