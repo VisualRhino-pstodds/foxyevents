@@ -56,7 +56,7 @@ const reasons = [
         {
           services.map((s) => (
             <a class="card" href={`/services#${s.slug}`}>
-              <Photo photo={coverFor(s.slug)} label={s.title} width={600} ratio="4 / 5" />
+              <Photo photo={coverFor(s.slug, s.cover)} label={s.title} width={600} ratio="4 / 5" />
               <div class="card-body">
                 <h3>{s.title}</h3>
                 <p>{s.short}</p>

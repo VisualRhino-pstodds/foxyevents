@@ -8,6 +8,8 @@ export type Service = {
   short: string;
   intro: string;
   includes: string[];
+  /** Alt text (file name words) of the photo to use as this service's cover */
+  cover?: string;
   link?: { href: string; label: string };
 };
 
@@ -23,6 +25,7 @@ export const services: Service[] = [
   },
   {
     slug: 'social',
+    cover: 'baby shower balloon arch with rocking chair',
     title: 'Social Celebrations',
     short: 'Birthdays, showers, graduations, anniversaries and holiday gatherings with personality.',
     intro:

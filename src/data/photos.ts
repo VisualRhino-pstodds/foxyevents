@@ -52,9 +52,9 @@ const stockAlt: Record<string, string> = {
   business: 'evening banquet room with round tables set for a company dinner',
 };
 
-/** A service's cover: its first real photo, else a stock fallback. */
-export function coverFor(category: string): Photo | undefined {
-  const real = photosIn(category)[0];
+/** A service's cover: its chosen photo (by alt text), else its first real photo, else a stock fallback. */
+export function coverFor(category: string, preferAlt?: string): Photo | undefined {
+  const real = photosIn(category).find((p) => p.alt === preferAlt) ?? photosIn(category)[0];
   if (real) return real;
   const entry = Object.entries(stockModules).find(([path]) => path.match(/stock\/([^/.]+)\./)?.[1] === category);
   return entry && { src: entry[1].default, category, alt: stockAlt[category] ?? `${category} event` };

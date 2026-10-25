@@ -26,7 +26,7 @@ import { coverFor } from '../data/photos';
     services.map((s, i) => (
       <section id={s.slug} class:list={['section', 'service', { 'section--tint': i % 2 === 0 }]}>
         <div class:list={['container', 'split', { flip: i % 2 === 1 }]}>
-          <Photo photo={coverFor(s.slug)} label={s.title} width={900} ratio="4 / 3" />
+          <Photo photo={coverFor(s.slug, s.cover)} label={s.title} width={900} ratio="4 / 3" />
           <div>
             <span class="eyebrow">0{i + 1}</span>
             <h2>{s.title}</h2>
